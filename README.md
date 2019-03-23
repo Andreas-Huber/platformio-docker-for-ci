@@ -3,7 +3,7 @@
 [![](https://images.microbadger.com/badges/version/infinitecoding/platformio-for-ci:3.6.5.svg)](https://cloud.docker.com/repository/docker/infinitecoding/platformio-for-ci/ "View on Docker Hub")
 [![](https://images.microbadger.com/badges/image/infinitecoding/platformio-for-ci:3.6.5.svg)](https://microbadger.com/images/infinitecoding/platformio-for-ci:3.6.5 "View layers on microbadger.com")
 
-This container can be used to create PlatformIO CI-Builds with a build service that supports Docker containers. We tested the image with Azure Pipelines, but theoretically, it should work in GitLab CI, Circle CI, Travis CI etc.
+This Docker image can be used to create PlatformIO CI-Builds with a build service that supports Docker containers. We tested the image with Azure Pipelines, but theoretically, it should work in GitLab CI, Circle CI, Travis CI etc.
 The image does not contain an entry point, because the build runner executes the tasks inside the container.
 
 [View it on Docker Hub](https://cloud.docker.com/repository/docker/infinitecoding/platformio-for-ci/)
