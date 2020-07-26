@@ -1,7 +1,10 @@
 # PlatformIO Continuous Integration Docker Image
 
-[![](https://images.microbadger.com/badges/version/infinitecoding/platformio-for-ci:4.1.0.svg)](https://cloud.docker.com/repository/docker/infinitecoding/platformio-for-ci/ "View on Docker Hub")
-[![](https://images.microbadger.com/badges/image/infinitecoding/platformio-for-ci:4.1.0.svg)](https://microbadger.com/images/infinitecoding/platformio-for-ci:4.1.0 "View layers on microbadger.com")
+[![](https://img.shields.io/docker/v/infinitecoding/platformio-for-ci?style=for-the-badge)](https://cloud.docker.com/repository/docker/infinitecoding/platformio-for-ci/ "View on Docker Hub")
+[![](https://img.shields.io/docker/image-size/infinitecoding/platformio-for-ci/latest?style=for-the-badge)](https://cloud.docker.com/repository/docker/infinitecoding/platformio-for-ci/ "View on Docker Hub")
+[![](https://img.shields.io/docker/pulls/infinitecoding/platformio-for-ci?style=for-the-badge)](https://cloud.docker.com/repository/docker/infinitecoding/platformio-for-ci/ "View on Docker Hub")
+[![](https://img.shields.io/github/license/Andreas-Huber/platformio-docker-for-ci?style=for-the-badge)](https://cloud.docker.com/repository/docker/infinitecoding/platformio-for-ci/ "View on Docker Hub")
+
 
 This Docker image can be used to create PlatformIO CI-Builds with a build service that supports Docker containers. We tested the image with Azure Pipelines, but theoretically, it should work in GitLab CI, Circle CI, Travis CI etc.
 The image does not contain an entry point, because the build runner executes the tasks inside the container.
