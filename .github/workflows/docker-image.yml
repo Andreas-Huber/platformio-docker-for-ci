@@ -16,5 +16,5 @@ jobs:
     - uses: actions/checkout@v2
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag platformio-docker-for-ci:test
-    - name: Build example arduino project inside container
+    - name: Test to build example project inside container
       run: docker run -v ${pwd}/example:/opt/build --name pio-build platformio-docker-for-ci:test platformio run -d /opt/build/.
