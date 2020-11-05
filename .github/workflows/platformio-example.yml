@@ -2,7 +2,7 @@ name: Example-CI
 
 on:
   push:
-    branches: [ github-ci ]
+    branches: [ github-actions ]
 
 
 jobs:
