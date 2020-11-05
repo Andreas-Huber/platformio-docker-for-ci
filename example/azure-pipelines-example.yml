@@ -18,7 +18,7 @@ resources:
 container: platformio
 steps:
 
-- script: platformio ci --project-conf=example/platformio.ini ./example/
+- script: platformio run -d ./example/
   displayName: 'Build firmware'
 
 - task: CopyFiles@2
