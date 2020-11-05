@@ -13,9 +13,7 @@ The image does not contain an entry point, because the build runner executes the
 
 # Azure Pipelines example
 
-
-
-The following build script builds the project ESP32 firmware in the [example](example) folder withing the *infinitecoding/platformio-for-ci* Docker container.
+The following build script builds the project ESP32 firmware in the [example](example) folder withing the *infinitecoding/platformio-for-ci* Docker container with azure pipelines.
 
 
 [![Build Status](https://infinite-coding.visualstudio.com/platformio-for-ci/_apis/build/status/Andreas-Huber.platformio-docker-for-ci?branchName=azure-pipelines)](https://infinite-coding.visualstudio.com/platformio-for-ci/_build/latest?definitionId=16&branchName=azure-pipelines)
@@ -54,6 +52,39 @@ steps:
     PathtoPublish: $(Build.ArtifactStagingDirectory)
     publishLocation: Container
     TargetPath: .
+```
+
+# Github Actions example
+
+The following build script builds the project ESP32 firmware in the [example](example) folder withing the *infinitecoding/platformio-for-ci* Docker container with github actions.
+
+![Example-CI](https://github.com/Andreas-Huber/platformio-docker-for-ci/workflows/Example-CI/badge.svg?branch=github-actions)
+
+**[.github\workflows\platformio-example.yml](.github\workflows\platformio-example.yml)**
+
+``` yaml
+name: Example-CI
+
+on:
+  push:
+    branches: [ github-actions ]
+
+jobs:
+  platformio-build:
+    runs-on: ubuntu-latest
+    container: infinitecoding/platformio-for-ci:latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build firmware
+        run: platformio run -d ./example/
+
+      - name: Upload firware artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: firmware.elf
+          path: example/.pio/build/esp32dev/firmware.elf
 ```
 
 # Run the container locally
