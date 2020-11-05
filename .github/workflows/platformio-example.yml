@@ -1,0 +1,23 @@
+name: Example-CI
+
+on:
+  push:
+    branches: [ github-ci ]
+
+
+jobs:
+  platformio-build:
+    runs-on: ubuntu-latest
+    container: platformio-for-ci:latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build firmware
+        run: platformio run -d ./example/
+
+      - name: Upload firware artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: firmware.elf
+          path: example/.pio/build/esp32dev/firmware.elf
