@@ -56,3 +56,38 @@ jobs:
         publishLocation: Container
         TargetPath: .
 ```
+
+# Run the container locally
+
+To test if the PlatformIO build works with the container, you can also run it locally.
+
+## Linux & MAC
+To build the project in the example folder on a UNIX system run the following commands.
+Or run the [runBuildInDocker.sh](example/runBuildInDocker.sh) bash script.
+
+``` bash
+# Set the example project folder as working directory
+cd example
+
+# Run the build
+docker run -v `pwd`:/opt/build --name pio-build infinitecoding/platformio-for-ci:latest platformio run -d /opt/build/.
+
+# Delete the container
+docker rm pio-build
+```
+
+## Windows
+To build the project in the example folder on a Windows system run the following commands.
+Or run the [runBuildInDocker.ps1](example/runBuildInDocker.ps1) PowerShell script.
+
+
+``` powershell
+# Set the example project folder as working directory
+cd example
+
+# Run the build
+docker run -v ${pwd}:/opt/build --name pio-build infinitecoding/platformio-for-ci:latest platformio run -d /opt/build/.
+
+# Delete the container
+docker rm pio-build
+```
