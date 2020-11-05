@@ -8,7 +8,7 @@ on:
 jobs:
   platformio-build:
     runs-on: ubuntu-latest
-    container: platformio-for-ci:latest
+    container: infinitecoding/platformio-for-ci:latest
 
     steps:
       - uses: actions/checkout@v2
