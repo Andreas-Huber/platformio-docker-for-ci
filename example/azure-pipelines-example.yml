@@ -1,7 +1,5 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
+# Builds the  ESP32 firmware in the [example](example) folder with
+# the *infinitecoding/platformio-for-ci* Docker image and uploads the firmware as artifact.
 
 trigger:
 - azure-pipelines
@@ -20,13 +18,6 @@ steps:
 
 - script: platformio run -d ./example/
   displayName: 'Build firmware'
-
-- task: PublishBuildArtifacts@1
-  inputs:
-    ArtifactName: 'Firmware $(Build.BuildNumber)'
-    PathtoPublish: '$(Build.SourcesDirectory)'
-    publishLocation: Container
-    TargetPath: .
 
 - task: CopyFiles@2
   inputs:
