@@ -18,12 +18,12 @@ resources:
 container: platformio
 steps:
 
-- script: platformio ci --build-dir="./bin" --project-conf=example/platformio.ini ./example/
+- script: platformio ci --project-conf=example/platformio.ini ./example/
   displayName: 'Build firmware'
 
 - task: CopyFiles@2
   inputs:
-    SourceFolder: '$(Build.SourcesDirectory)/bin/.pio/build/esp32dev/'
+    SourceFolder: '$(Build.SourcesDirectory)/.pio/build/esp32dev/'
     Contents: 'firmware.bin'
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
