@@ -1,0 +1,33 @@
+# Builds the  ESP32 firmware in the [example](example) folder with
+# the *infinitecoding/platformio-for-ci* Docker image and uploads the firmware as artifact.
+
+trigger:
+- azure-pipelines
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+resources:
+  containers:
+  - container: platformio
+    image: infinitecoding/platformio-for-ci:latest
+    endpoint: personal-docker-hub-connection
+
+container: platformio
+steps:
+
+- script: platformio run -d ./example/
+  displayName: 'Build firmware'
+
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(Build.SourcesDirectory)/example/.pio/build/esp32dev/'
+    Contents: 'firmware.bin'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    ArtifactName: 'Firmware $(Build.BuildNumber)'
+    PathtoPublish: $(Build.ArtifactStagingDirectory)
+    publishLocation: Container
+    TargetPath: .

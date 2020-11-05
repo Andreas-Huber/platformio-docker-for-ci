@@ -13,46 +13,80 @@ The image does not contain an entry point, because the build runner executes the
 
 # Azure Pipelines example
 
-The following build script builds the hello world ESP32 firmware inside the *infinitecoding/platformio-for-ci* Docker container.
 
-The folder structure of the built source code:
-```
-platformio.ini
-helloworld/helloworld.ino
-```
+
+The following build script builds the project ESP32 firmware in the [example](example) folder withing the *infinitecoding/platformio-for-ci* Docker container.
+
+
+[![Build Status](https://infinite-coding.visualstudio.com/platformio-for-ci/_apis/build/status/Andreas-Huber.platformio-docker-for-ci?branchName=azure-pipelines)](https://infinite-coding.visualstudio.com/platformio-for-ci/_build/latest?definitionId=16&branchName=azure-pipelines)
+
+
+**[example/azure-pipelines-example.yml](example/azure-pipelines-example.yml)**
 
 ``` yaml
 trigger:
-- master
+- azure-pipelines
+
+pool:
+  vmImage: 'ubuntu-latest'
 
 resources:
   containers:
   - container: platformio
     image: infinitecoding/platformio-for-ci:latest
-    endpoint: dockerhub-infinite-coding
+    endpoint: personal-docker-hub-connection
 
-jobs:
-- job: esp32_platformio
-  displayName: "PlatformIO build"
-  container: platformio
-  pool:
-    vmImage: ubuntu-18.04
-  steps:
-    - script: |
-        rm -fdr bin
-        mkdir bin
-      displayName: 'Prepare output directories'      
-    - script: platformio ci --build-dir="./bin" --keep-build-dir --project-conf=platformio.ini ./helloworld/
-      displayName: 'Build firmware'
-    - task: CopyFiles@2
-      inputs:
-        SourceFolder: $(Build.SourcesDirectory)/bin/.pio/build/esp32dev/
-        Contents: 'firmware.bin'
-        TargetFolder: $(Build.ArtifactStagingDirectory)
-    - task: PublishBuildArtifacts@1
-      inputs:
-        ArtifactName: 'Firmware $(Build.BuildNumber)'
-        PathtoPublish: $(Build.ArtifactStagingDirectory)
-        publishLocation: Container
-        TargetPath: .
+container: platformio
+steps:
+
+- script: platformio run -d ./example/
+  displayName: 'Build firmware'
+
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(Build.SourcesDirectory)/example/.pio/build/esp32dev/'
+    Contents: 'firmware.bin'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    ArtifactName: 'Firmware $(Build.BuildNumber)'
+    PathtoPublish: $(Build.ArtifactStagingDirectory)
+    publishLocation: Container
+    TargetPath: .
+```
+
+# Run the container locally
+
+To test if the PlatformIO build works with the container, you can also run it locally.
+
+## Linux & MAC
+To build the project in the example folder on a UNIX system run the following commands.
+Or run the [runBuildInDocker.sh](example/runBuildInDocker.sh) bash script.
+
+``` bash
+# Set the example project folder as working directory
+cd example
+
+# Run the build
+docker run -v `pwd`:/opt/build --name pio-build infinitecoding/platformio-for-ci:latest platformio run -d /opt/build/.
+
+# Delete the container
+docker rm pio-build
+```
+
+## Windows
+To build the project in the example folder on a Windows system run the following commands.
+Or run the [runBuildInDocker.ps1](example/runBuildInDocker.ps1) PowerShell script.
+
+
+``` powershell
+# Set the example project folder as working directory
+cd example
+
+# Run the build
+docker run -v ${pwd}:/opt/build --name pio-build infinitecoding/platformio-for-ci:latest platformio run -d /opt/build/.
+
+# Delete the container
+docker rm pio-build
 ```
