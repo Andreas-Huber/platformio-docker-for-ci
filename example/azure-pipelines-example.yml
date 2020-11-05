@@ -13,12 +13,10 @@ resources:
   containers:
   - container: platformio
     image: infinitecoding/platformio-for-ci:latest
-    endpoint: dockerhub-infinite-coding
+    endpoint: personal-docker-hub-connection
 
 container: platformio
 steps:
-- script: cd example
-  displayName: change working directory to example the example directory
 
 - script: platformio ci --build-dir="./bin" --keep-build-dir -d ./example/
   displayName: 'Build firmware'
