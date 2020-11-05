@@ -21,9 +21,16 @@ steps:
 - script: platformio run -d ./example/
   displayName: 'Build firmware'
 
+- task: PublishBuildArtifacts@1
+  inputs:
+    ArtifactName: 'Firmware $(Build.BuildNumber)'
+    PathtoPublish: '$(Build.SourcesDirectory)'
+    publishLocation: Container
+    TargetPath: .
+
 - task: CopyFiles@2
   inputs:
-    SourceFolder: '$(Build.SourcesDirectory)/.pio/build/esp32dev/'
+    SourceFolder: '$(Build.SourcesDirectory)/example/.pio/build/esp32dev/'
     Contents: 'firmware.bin'
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
