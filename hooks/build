@@ -1,0 +1,5 @@
+#!/bin/bash
+
+source hooks/getversion.sh
+echo "Building using PlatformIO-Version: ${FULL_VERSION}"
+docker build --build-arg PLATFORM_IO_VERSION=$FULL_VERSION -f $DOCKERFILE_PATH -t $IMAGE_NAME .

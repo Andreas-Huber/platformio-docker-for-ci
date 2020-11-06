@@ -1,0 +1,14 @@
+#!/bin/bash
+source hooks/getversion.sh
+
+echo "Tagging and pushing version: ${MAJOR}"
+docker tag $IMAGE_NAME $DOCKER_REPO:$MAJOR
+docker push $DOCKER_REPO:$MAJOR
+
+echo "Tagging and pushing version: ${MAJOR}.${MINOR}"
+docker tag $IMAGE_NAME $DOCKER_REPO:$MAJOR.$MINOR
+docker push $DOCKER_REPO:$MAJOR.$MINOR
+
+echo "Tagging and pushing version: ${FULL_VERSION}"
+docker tag $IMAGE_NAME $DOCKER_REPO:$FULL_VERSION
+docker push $DOCKER_REPO:$MAJOR.$FULL_VERSION
