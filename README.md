@@ -6,14 +6,14 @@
 [![](https://img.shields.io/github/license/Andreas-Huber/platformio-docker-for-ci?style=for-the-badge)](https://cloud.docker.com/repository/docker/infinitecoding/platformio-for-ci/ "View on Docker Hub")
 
 
-This Docker image can be used to create PlatformIO CI-Builds with a build service that supports Docker containers. We tested the image with Azure Pipelines, but theoretically, it should work in GitLab CI, Circle CI, Travis CI etc.
-The image does not contain an entry point, because the build runner executes the tasks inside the container.
+This Docker image can be used to create PlatformIO CI-Builds with a build service that supports Docker containers. We tested the image with Azure Pipelines and Github Actions but theoretically, it should work in GitLab CI, Circle CI, Travis CI, etc.
+The image does not contain an entry point because the build runner executes the tasks inside the container.
 
 [View it on Docker Hub](https://cloud.docker.com/repository/docker/infinitecoding/platformio-for-ci/)
 
 # Azure Pipelines example
 
-The following build script builds the project ESP32 firmware in the [example](example) folder withing the *infinitecoding/platformio-for-ci* Docker container with azure pipelines.
+The following build script builds the ESP32 firmware in the [example](example) folder withing the *infinitecoding/platformio-for-ci* Docker container with Azure pipelines.
 
 
 [![Build Status](https://infinite-coding.visualstudio.com/platformio-for-ci/_apis/build/status/Andreas-Huber.platformio-docker-for-ci?branchName=azure-pipelines)](https://infinite-coding.visualstudio.com/platformio-for-ci/_build/latest?definitionId=16&branchName=azure-pipelines)
@@ -54,9 +54,9 @@ steps:
     TargetPath: .
 ```
 
-# Github Actions example
+# GitHub Actions example
 
-The following build script builds the project ESP32 firmware in the [example](example) folder withing the *infinitecoding/platformio-for-ci* Docker container with github actions.
+The following build script builds the ESP32 firmware in the [example](example) folder withing the *infinitecoding/platformio-for-ci* Docker container with GitHub actions.
 
 ![Example-CI](https://github.com/Andreas-Huber/platformio-docker-for-ci/workflows/Example-CI/badge.svg?branch=github-actions)
 
@@ -92,11 +92,11 @@ jobs:
 To test if the PlatformIO build works with the container, you can also run it locally.
 
 ## Linux & MAC
-To build the project in the example folder on a UNIX system run the following commands.
+To build the project in the example folder on a UNIX system, run the following commands.
 Or run the [runBuildInDocker.sh](example/runBuildInDocker.sh) bash script.
 
 ``` bash
-# Set the example project folder as working directory
+# Set the example project folder as the working directory
 cd example
 
 # Run the build
@@ -107,12 +107,12 @@ docker rm pio-build
 ```
 
 ## Windows
-To build the project in the example folder on a Windows system run the following commands.
+To build the project in the example folder on a Windows system, run the following commands.
 Or run the [runBuildInDocker.ps1](example/runBuildInDocker.ps1) PowerShell script.
 
 
 ``` powershell
-# Set the example project folder as working directory
+# Set the example project folder as the working directory
 cd example
 
 # Run the build
