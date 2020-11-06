@@ -11,4 +11,4 @@ docker push $DOCKER_REPO:$MAJOR.$MINOR
 
 echo "Tagging and pushing version: ${FULL_VERSION}"
 docker tag $IMAGE_NAME $DOCKER_REPO:$FULL_VERSION
-docker push $DOCKER_REPO:$MAJOR.$FULL_VERSION
+docker push $DOCKER_REPO:$FULL_VERSION
