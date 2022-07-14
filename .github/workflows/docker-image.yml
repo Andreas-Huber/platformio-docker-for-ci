@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [ master ]
 
+env:
+  IMAGE_NAME: platformio-for-ci
+  DOCKER_REPO: infinitecoding/platformio-for-ci
+
 jobs:
 
   build:
@@ -15,6 +19,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag platformio-docker-for-ci:test
+      run: |
+        source hooks/getversion.sh
+        echo "Building using PlatformIO-Version: ${FULL_VERSION}"
+        docker build --build-arg PLATFORM_IO_VERSION=$FULL_VERSION -f Dockerfile -t $IMAGE_NAME .
     - name: Test to build example project inside container
-      run: docker run -v `pwd`/example:/opt/build --name pio-build platformio-docker-for-ci:test platformio run -d /opt/build/.
+      run: docker run -v `pwd`/example:/opt/build --name pio-build $IMAGE_NAME platformio run -d /opt/build/.
