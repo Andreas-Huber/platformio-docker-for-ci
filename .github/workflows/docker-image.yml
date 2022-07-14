@@ -24,11 +24,10 @@ jobs:
       with:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
-        
-    - name: Get PlatformIO Version
-      run: source hooks/getversion.sh
+
     - name: Build the Docker image
       run: |
+        source hooks/getversion.sh
         echo "Building using PlatformIO-Version: ${FULL_VERSION}"
         docker build --build-arg PLATFORM_IO_VERSION=$FULL_VERSION -f Dockerfile -t $IMAGE_NAME .
         
@@ -38,6 +37,8 @@ jobs:
     - name: Publish image
       if: github.ref == 'refs/heads/master'
       run: |
+        source hooks/getversion.sh
+
         echo "Tagging and pushing version: latest"
         docker tag $IMAGE_NAME $DOCKER_REPO:latest
         docker push $DOCKER_REPO:latest
