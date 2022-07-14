@@ -1,6 +1,6 @@
-FROM python:3-buster
+FROM python:3-bullseye
 
-ARG PLATFORM_IO_VERSION=5.0.2
+ARG PLATFORM_IO_VERSION=6.1.1
 
 # Update PIP
 RUN pip install --upgrade pip
