@@ -30,10 +30,6 @@ jobs:
       run: |
         source hooks/getversion.sh
 
-        FULL_VERSION=5.2.5
-        MAJOR=5
-        MINOR=2
-
         echo "Building using PlatformIO-Version: ${FULL_VERSION}"
         docker build --build-arg PLATFORM_IO_VERSION=$FULL_VERSION -f Dockerfile -t $IMAGE_NAME .
         
@@ -44,10 +40,6 @@ jobs:
       #if: github.ref == 'refs/heads/master'
       run: |
         source hooks/getversion.sh
-
-        export FULL_VERSION=5.2.5
-        export MAJOR=5
-        export MINOR=2
 
         echo "Tagging and pushing version: latest"
         docker tag $IMAGE_NAME $DOCKER_REPO:latest
