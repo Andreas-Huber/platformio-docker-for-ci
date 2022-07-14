@@ -37,7 +37,7 @@ jobs:
       run: docker run -v `pwd`/example:/opt/build --name pio-build $IMAGE_NAME platformio run -d /opt/build/.
       
     - name: Publish image to docker hub
-      #if: github.ref == 'refs/heads/master'
+      if: github.ref == 'refs/heads/master'
       run: |
         source hooks/getversion.sh
 
