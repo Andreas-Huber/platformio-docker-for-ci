@@ -18,10 +18,39 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    
+    - name: Log in to Docker Hub
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        
+    - name: Get PlatformIO Version
+      run: source hooks/getversion.sh
     - name: Build the Docker image
       run: |
-        source hooks/getversion.sh
         echo "Building using PlatformIO-Version: ${FULL_VERSION}"
         docker build --build-arg PLATFORM_IO_VERSION=$FULL_VERSION -f Dockerfile -t $IMAGE_NAME .
+        
     - name: Test to build example project inside container
       run: docker run -v `pwd`/example:/opt/build --name pio-build $IMAGE_NAME platformio run -d /opt/build/.
+      
+    - name: Publish image
+      if: github.ref == 'refs/heads/master'
+      run: |
+        echo "Tagging and pushing version: latest"
+        docker tag $IMAGE_NAME $DOCKER_REPO:latest
+        docker push $DOCKER_REPO:latest
+        
+        echo "Tagging and pushing version: ${MAJOR}"
+        docker tag $IMAGE_NAME $DOCKER_REPO:$MAJOR
+        docker push $DOCKER_REPO:$MAJOR
+
+        echo "Tagging and pushing version: ${MAJOR}.${MINOR}"
+        docker tag $IMAGE_NAME $DOCKER_REPO:$MAJOR.$MINOR
+        docker push $DOCKER_REPO:$MAJOR.$MINOR
+
+        echo "Tagging and pushing version: ${FULL_VERSION}"
+        docker tag $IMAGE_NAME $DOCKER_REPO:$FULL_VERSION
+        docker push $DOCKER_REPO:$FULL_VERSION
+      
