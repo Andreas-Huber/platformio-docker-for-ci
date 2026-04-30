@@ -5,6 +5,9 @@ on:
     branches: [ master ]
   pull_request:
     branches: [ master ]
+  schedule:
+    # Run once per month on the 1st day at 02:00 UTC.
+    - cron: '0 2 1 * *'
   workflow_dispatch:
 
 env:
