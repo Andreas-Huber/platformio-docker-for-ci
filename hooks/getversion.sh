@@ -1,5 +1,5 @@
 export RESPONSE=$(curl -sb -H "Accept: application/json" "https://api.github.com/repos/platformio/platformio-core/releases/latest")
-export FULL_VERSION="`echo $RESPONSE | grep -oP '"tag_name":\s"v\K(\d\.\d\.\d)'`"
+export FULL_VERSION="$(echo "$RESPONSE" | grep -oP '"tag_name":\s*"v\K([0-9]+\.[0-9]+\.[0-9]+)')"
 
 VERSIONS=$(echo $FULL_VERSION | tr "." "\n")
 
