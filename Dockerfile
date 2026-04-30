@@ -1,6 +1,6 @@
-FROM python:3-bullseye
+FROM python:3.12-bookworm
 
-ARG PLATFORM_IO_VERSION=6.1.1
+ARG PLATFORM_IO_VERSION=6.1.19
 
 # Update PIP
 RUN pip install --upgrade pip
